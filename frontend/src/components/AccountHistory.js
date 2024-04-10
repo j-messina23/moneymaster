@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 function AccountHistory({ isPanelExpanded }) {
-    const app_name = 'moneymaster20-004665ab8395'
+    const app_name = 'moneymaster22-267f3a958fc3'
     function buildPath(route) {
         if (process.env.NODE_ENV === 'production') {
             return 'https://' + app_name + '.herokuapp.com/' + route;

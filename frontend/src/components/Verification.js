@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 const VerificationPage = () => {
-    const app_name = 'moneymaster20-004665ab8395'
-    function buildPath(route) {
-        if (process.env.NODE_ENV === 'production') {
-            return 'https://' + app_name + '.herokuapp.com/' + route;
-        }
-        else {
-            return 'http://localhost:5000/' + route;
-        }
+  const app_name = 'moneymaster22-267f3a958fc3'
+  function buildPath(route) {
+      if (process.env.NODE_ENV === 'production') {
+          return 'https://' + app_name + '.herokuapp.com/' + route;
+      }
+      else {
+          return 'http://localhost:5000/' + route;
+      }
     }
   const [code, setCode] = useState('');
   const [verificationStatus, setVerificationStatus] = useState('');
