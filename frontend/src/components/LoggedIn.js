@@ -7,7 +7,7 @@ function LoggedIn()
     {
 	    event.preventDefault();
 
-	    alert('addAccount()');
+	    //alert('addAccount()');
 
     };
 

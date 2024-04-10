@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-
 function PageTitle(){
     return (
-        <h1 id="title">Money Master</h1>
+        <h1 id="title" >Money Master</h1>
     );
 };
 

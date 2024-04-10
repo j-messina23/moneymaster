@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import Transfers from '../components/Transfers'
-import SidePanel from '../components/SidePanel';
 
-function TransferPage()
-{
+import SidePanel from '../components/SidePanel';
+import EditProfile from '../components/EditProfile';
+
+const EditUserAccountPage = () => {
     const [isPanelExpanded, setIsPanelExpanded] = useState(true);
 
     const togglePanel = () => {
         setIsPanelExpanded(!isPanelExpanded);
     };
 
-    return(
+    return (
         <div>
             <SidePanel isPanelExpanded={isPanelExpanded} togglePanel={togglePanel}/>
-            <Transfers isPanelExpanded={isPanelExpanded}/>
+            <EditProfile isPanelExpanded={isPanelExpanded}/>
         </div>
     );
-}
+};
 
-export default TransferPage;
+export default EditUserAccountPage;

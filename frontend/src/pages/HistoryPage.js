@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Transfers from '../components/Transfers'
+import AccountHistory from '../components/AccountHistory';
 import SidePanel from '../components/SidePanel';
 
-function TransferPage()
+function HistoryPage()
 {
     const [isPanelExpanded, setIsPanelExpanded] = useState(true);
 
@@ -13,9 +13,9 @@ function TransferPage()
     return(
         <div>
             <SidePanel isPanelExpanded={isPanelExpanded} togglePanel={togglePanel}/>
-            <Transfers isPanelExpanded={isPanelExpanded}/>
+            <AccountHistory isPanelExpanded={isPanelExpanded}/>
         </div>
     );
-}
+};
 
-export default TransferPage;
+export default HistoryPage
