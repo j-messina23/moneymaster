@@ -17,6 +17,7 @@ function AccountHistory({ isPanelExpanded }) {
     const [transactions, setTransactions] = useState([])
     const UserID = userData.ID
     const AccountType = AccountInfo.AccountType
+    console.log(AccountType)
     const [HiddenID, SetHiddenID] = useState('')
 
     useEffect(() => {
@@ -76,22 +77,28 @@ function AccountHistory({ isPanelExpanded }) {
                     <div className="flex justify-center text-white font-bold text-3xl uppercase leading-tight">
                         <p>Transaction History {HiddenID}</p>
                     </div>
-                    <div className="w-5/6 h-5/6 flex-col items-center justify-evenly overflow-y-auto">
+                    <div className="w-full h-5/6 flex-col items-center justify-evenly overflow-y-auto">
                         {transactions.map((item, index) => (
-                            <div key={index} className="outline rounded outline-black">
-                                <p>Transaction ID: {item[0]}</p>
-                                <p>Transaction Type: {item[1]}</p>
-                                <p>Amount: {item[2]}{item[2].charAt(0)}</p>
-                                <p>{item[3]}</p>
-                                <p>{item[4]}</p>
-                                <p>{item[5]}</p>
-                                <p>{item[6]}</p>
-                                <p>{item[7]}</p>
+                            <div key={index} className="flex w-full h-1/6 outline rounded outline-black justify-evenly">
+                                <p>Date: {item[3]}</p>
+                                <p>Time: {item[4]}</p>
+                                <p>Amount: {item[2]}
+                                    {
+                                        item[2].charAt(0) == "-" && (
+                                            <img src="chart_dec.svg" className="size-6 inline" />
+                                        )
+                                    }
+                                    {
+                                        item[2].charAt(0) == "+" && (
+                                            <img src="chart_inc.svg" className="size-6 inline" />
+                                        )
+                                    }
+                                </p>
                             </div>
                         ))}
                     </div>
-                    <div className="flex items-center">
-                        <button onClick={AccountsHref} className="w-3/6 items-center bottom-0 bg-white text-teal-800 font-semibold py-2 px-4 mr-2 rounded hover:bg-gray-200">Back To Accounts</button>
+                    <div className="flex items-center justify-center">
+                        <button onClick={AccountsHref} className="w-3/6 bottom-0 bg-white text-teal-800 font-semibold py-2 px-4 mr-2 rounded hover:bg-gray-200">Back To Accounts</button>
                     </div>
                 </div>
             </div>
