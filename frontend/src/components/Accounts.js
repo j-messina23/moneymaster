@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import LoggedInName from './LoggedInName'
 
 function Accounts({isPanelExpanded}) {
     const app_name = 'moneymaster22-267f3a958fc3'
@@ -89,11 +90,13 @@ function Accounts({isPanelExpanded}) {
                 {/* Sidebar */}
                 {/* Sidebar content goes here */}
             </div>
-
         <div className="w-full h-screen text-white bg-teal-800 flex flex-col items-center justify-evenly">
-            <div className="flex items-center justify-center">
-                <img src="logo.png" alt="Logo" className="w-28 h-28" />
-                <h1 className="text-7xl font-extrabold ml-2 uppercase leading-tight" >Money Master</h1>
+            <div className="text-center">
+                <div className="flex items-center justify-center">
+                     <img src="logo.png" alt="Logo" className="w-28 h-28" />
+                    <h1 className="text-7xl font-extrabold ml-2 uppercase leading-tight" >Money Master</h1>
+                </div>
+                <LoggedInName/>
             </div>
             <div class="w-3/6 outline rounded outline-offset-8 outline-white" onClick={checkingClick}>
                 <div className="flex justify-between text-white font-bold text-3xl uppercase leading-tight">
@@ -101,7 +104,7 @@ function Accounts({isPanelExpanded}) {
                     <p>{cuid}</p>
                 </div>
                 <p>Amount: ${CheckingAccountValue}</p>
-                <p class="w-9/10 outline rounded outline-offset-0">Daily Transfer Limit: $500.00</p>
+                <p>Single Transfer Limit: $500.00</p>
             </div>
             <div class="w-3/6 outline rounded outline-offset-8 outline-white" onClick={savingsClick}>
                 <div className="flex justify-between text-white font-bold text-3xl uppercase leading-tight">
@@ -109,7 +112,6 @@ function Accounts({isPanelExpanded}) {
                     <p>{suid}</p>
                 </div>
                 <p>Amount: ${SavingsAccountValue}</p>
-                <p>Interest Rate: 6%</p>
             </div>
         </div>
         </div>
