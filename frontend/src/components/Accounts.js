@@ -90,10 +90,10 @@ function Accounts({isPanelExpanded}) {
                 {/* Sidebar content goes here */}
             </div>
 
-        <div className="w-full h-screen bg-teal-800 flex flex-col items-center justify-evenly">
+        <div className="w-full h-screen text-white bg-teal-800 flex flex-col items-center justify-evenly">
             <div className="flex items-center justify-center">
                 <img src="logo.png" alt="Logo" className="w-28 h-28" />
-                <h1 className="text-white text-7xl font-extrabold ml-2 uppercase leading-tight" >Money Master</h1>
+                <h1 className="text-7xl font-extrabold ml-2 uppercase leading-tight" >Money Master</h1>
             </div>
             <div class="w-3/6 outline rounded outline-offset-8 outline-white" onClick={checkingClick}>
                 <div className="flex justify-between text-white font-bold text-3xl uppercase leading-tight">
