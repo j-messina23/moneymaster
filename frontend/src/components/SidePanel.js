@@ -39,7 +39,7 @@ function SidePanel({ isPanelExpanded, togglePanel }) {
 
       {isPanelExpanded &&(          
         <div>
-            <button onClick={doLogout} className="w-full py-3 bg-[#E9AD03] text-white font-semibold hover:bg-[#8A6807] focus:outline-none">
+            <button onClick={doLogout} className="w-full py-3 bg-[#E9AD03] text-3xl text-white font-bold hover:bg-[#8A6807] focus:outline-none">
               Log out
             </button>
         </div>)}
