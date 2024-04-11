@@ -4,11 +4,21 @@ const cors = require('cors');
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-
 const path = require('path');
 const PORT = process.env.PORT || 5000;
-
 const app = express();
+
+const app_name = 'moneymaster22-267f3a958fc3'
+function buildPath(route) {
+    if (process.env.NODE_ENV === 'production') {
+        return 'https://' + app_name + '.herokuapp.com/' + route;
+    }
+    else {
+        return 'http://localhost:5000/' + route;
+    }
+}
+const resetPasswordUrl = buildPath(`resetpw?token=${token}`);
+
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -596,7 +606,7 @@ app.post('/api/forgotPasswordEmail', async (req, res) => {
 
     // generates token
     const token = crypto.randomBytes(20).toString('hex');
-    
+
     const transporter = nodemailer.createTransport({
         service: "Gmail",
         host: "smtp.gmail.com",
@@ -614,7 +624,7 @@ app.post('/api/forgotPasswordEmail', async (req, res) => {
         subject: 'Password Reset Verification Code', // Subject line
         html: `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>` +
         `<p>Please click on the following link, or paste this into your browser to complete the process:</p>` +
-        `<a href="http://localhost:3000/resetpw?token=${token}">Reset Password</a>` +
+        `<a href="${resetPasswordUrl}">Reset Password</a>` +
         `<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`
     };
 

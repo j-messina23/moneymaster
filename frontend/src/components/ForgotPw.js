@@ -20,11 +20,6 @@ function ForgotPw() {
     };
 
 
-
-
-
-
-
     // handles email submission
     const submitText = async () => {
         if (isValidEmailFormat(email)) {
@@ -62,7 +57,6 @@ function ForgotPw() {
                     }
                 } else {
                     // no user found with email
-                    console.log("in else");
                     setMessage('No account found with that email. Please try again.');
                 }
             } catch (error) {
