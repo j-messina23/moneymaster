@@ -79,16 +79,14 @@ function AccountHistory({ isPanelExpanded }) {
                     </div>
                     <div className="w-full h-5/6 flex-col items-center justify-evenly overflow-y-auto">
                         {transactions.map((item, index) => (
-                            <div key={index} className="flex w-full h-1/6 outline rounded outline-black justify-evenly">
+                            <div key={index} className="flex w-full h-1/6 items-center outline outline-white justify-evenly">
                                 <p>Date: {item[3]}</p>
                                 <p>Time: {item[4]}</p>
-                                <p>Amount: {item[2]}
-                                    {
-                                        item[2].charAt(0) === "-" && (
-                                            <img src="chart_dec.svg" className="size-6 inline" />
-                                        )
-                                    }
-                                    {
+                                <p>Amount: {item[2]} {
+                                    item[2].charAt(0) === "-" && (
+                                        <img src="chart_dec.svg" className="size-6 inline" />
+                                    )
+                                } {
                                         item[2].charAt(0) === "+" && (
                                             <img src="chart_inc.svg" className="size-6 inline" />
                                         )
