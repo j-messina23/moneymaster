@@ -79,13 +79,15 @@ app.post('/api/register', async (req, res, next) =>
 
 
         const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
-            auth: {
-                user: 'elian10@ethereal.email',
-                pass: 'GSz4RsgmFqGHWyYgBr'
-            }
-        });
+	    service: "Gmail",
+	    host: "smtp.gmail.com",
+	    port: 465,
+	    secure: true,
+	    auth: {
+	      user: "noreply.moneymaster@gmail.com",
+	      pass: "ggmsvxhwpiiotfny",
+	    },
+	});
 
         const mailOptions = {
             from: 'moneymaster.com',
