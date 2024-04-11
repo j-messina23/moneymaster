@@ -116,6 +116,7 @@ function EditProfile({isPanelExpanded}) {
                         <div className="mb-4">
                             <label htmlFor="lastName"  className="block text-teal-800 font-bold mb-2">Last Name</label>
                             <input
+                                id="lastName"
                                 type="text"
                                 className="appearance-none border border-teal-800 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 value={lastName}
@@ -125,6 +126,7 @@ function EditProfile({isPanelExpanded}) {
                         <div className="mb-4">
                             <label htmlFor="phoneNumber" className="block text-teal-800 font-bold mb-2">Phone Number</label>
                             <input
+                                id="phoneNumber"
                                 type="text"
                                 className="appearance-none border border-teal-800 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 value={phoneNumber}
@@ -133,7 +135,7 @@ function EditProfile({isPanelExpanded}) {
                         </div>
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-teal-800 font-bold mb-2">Email</label>
-                            <input
+                            <input id="email"
                                 type="email"
                                 className="appearance-none border border-teal-800 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 value={email}
