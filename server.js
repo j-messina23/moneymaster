@@ -423,7 +423,7 @@ app.post('/api/checkBalance', async (req, res) => {
     }
 });
 
-/ TRANSFER MONEY USER -> USER
+// TRANSFER MONEY USER -> USER
 app.post('/api/transferMoney', async (req, res) => {
     const { UserID1, Username, Money } = req.body;
     const database = client.db("COP4331Bank").collection("Checking Accounts");
