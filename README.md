@@ -2,6 +2,8 @@
 We are MoneyMaster and we are the best company for storing and helping you
  manage your (FAKE) money!
 
+ url: https://moneymaster22-267f3a958fc3.herokuapp.com/
+
 ## Connect to local server:
 In Ubuntu
     git/MERN_Team_20: sudo npm start
