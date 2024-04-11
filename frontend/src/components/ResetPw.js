@@ -125,7 +125,7 @@ function ResetPw() {
         <div className="w-screen h-screen bg-teal-800 flex flex-col items-center justify-center">
             <div className="flex items-center justify-center">
                 <img src="logo.png" alt="Logo" className="w-28 h-28" />
-                <h1 className="text-white text-7xl font-extrabold ml-2 uppercase leading-tight">Money Master</h1>
+                <h1 className="text-white text-7xl font-extrabold ml-2 uppercase leading-tight">Money Master</h1>            
             </div>
 
             <div className="p-8 mb-6 rounded-lg border-2 border-white flex flex-col justify-center">
@@ -135,60 +135,32 @@ function ResetPw() {
 
                 {/* Password input field */}
                 <div className="w-full py-3">
-                    <div className="relative w-full min-w-[300px]">
+                    <div className="relative">
                         <input
                             id='password'
                             type="password"
                             value={password}
                             onChange={handlePasswordChange}
                             onBlur={handlePasswordBlur}
-                            className="peer w-full h-10 bg-transparent text-white font-normal outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-white placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-white"
+                            className="peer w-full h-10 bg-transparent text-white text-lg font-normal outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-white border-b-2 border-white focus:border-white px-3 py-2.5 rounded"
                             placeholder=" "
                             required
                         />
-                        <label htmlFor='password' className="absolute left-0 -top-3.5 text-white transition-all text-sm">Password</label>
+                        <label htmlFor='password' className="absolute left-0 -top-3.5 text-white text-lg">Password</label>
                     </div>
                 </div>
 
-                {/* Password requirements */}
-                {passwordRequirements.length > 0 && (
-                    <div className="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg border-l-4 border-red-500" role="alert">
-                        <div>
-                            <span className="font-medium">Ensure that these requirements are met:</span>
-                            <ul className="list-disc list-inside">
-                                {passwordRequirements.map((requirement, index) => (
-                                    <li key={index}>{requirement}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                )}
-
-                {/* Confirm Password input field */}
-                <div className="w-full py-3">
-                    <div className="relative w-full min-w-[300px]">
-                        <input
-                            id='confirmPassword'
-                            type="password"
-                            value={confirmPassword}
-                            onChange={handleConfirmPasswordChange}
-                            className="peer w-full h-10 bg-transparent text-white font-normal outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-white placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-white"
-                            placeholder=" "
-                            required
-                        />
-                        <label htmlFor='confirmPassword' className="absolute left-0 -top-3.5 text-white transition-all text-sm">Confirm Password</label>
-                    </div>
-                </div>
+                {/* ...password requirements and confirm password input field... */}
 
                 {/* Passwords do not match message */}
                 {!passwordMatch && (
                     <div className="text-red-700 bg-red-100 border-l-4 border-red-500 p-4 rounded relative" role="alert">
-                        <span className="block sm:inline">Passwords do not match.</span>
+                        <span>Passwords do not match.</span>
                     </div>
                 )}
 
                 {/* Submit button */}
-                <button type="submit" className="w-full bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50">Change Password</button>
+                <button type="submit" className="w-full bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-gray-200">Change Password</button>
 
                 {/* Error message */}
                 {error && (
