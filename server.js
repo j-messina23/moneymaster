@@ -5,10 +5,17 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
+const path = require('path');
+const PORT = process.env.PORT || 5000;
+
 const app = express();
+
+app.set('port', (process.env.PORT || 5000));
+
 app.use(cors());
 app.use(bodyParser.json());
 
+/*
 const MongoClient = require("mongodb").MongoClient;
 const uri = 'mongodb+srv://le100900:wCqe5pUYV7GGTVGi@cluster0.l9zbhsz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const client = new MongoClient(uri);
@@ -23,7 +30,13 @@ catch (e)
 {
 	console.error(e);
 }
+*/
 
+require('dotenv').config();
+const url = process.env.MONGODB_URI;
+const MongoClient = require('mongodb').MongoClient;
+const client = new MongoClient(url);
+client.connect();
 
 
 // Register
@@ -521,5 +534,19 @@ app.use((req, res, next) =>
 	next();
 });
 
-app.listen(5000); // start Node + Express server on port 5000
+app.listen(PORT, () =>
+{
+	console.log('Server listening on port ' + PORT);
+});
+
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production')
+{
+	// Set static folder
+	app.use(express.static('frontend/build'));
+	app.get('*', (req, res) =>
+	{
+		res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+	});
+}
 
