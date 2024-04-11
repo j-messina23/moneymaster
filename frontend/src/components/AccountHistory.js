@@ -84,12 +84,12 @@ function AccountHistory({ isPanelExpanded }) {
                                 <p>Time: {item[4]}</p>
                                 <p>Amount: {item[2]}
                                     {
-                                        item[2].charAt(0) == "-" && (
+                                        item[2].charAt(0) === "-" && (
                                             <img src="chart_dec.svg" className="size-6 inline" />
                                         )
                                     }
                                     {
-                                        item[2].charAt(0) == "+" && (
+                                        item[2].charAt(0) === "+" && (
                                             <img src="chart_inc.svg" className="size-6 inline" />
                                         )
                                     }
