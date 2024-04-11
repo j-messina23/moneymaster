@@ -13,7 +13,6 @@ function Transfers({isPanelExpanded}) {
     }
     const [transferTarget, setTransferTarget] = useState('');
     const [transferAmount, setTransferAmount] = useState('');
-    const [balanceValid, setBalanceValid] = useState('');
     const [transferAccountType, setAccountType] = useState('1');
     const [switchForms, setForm] = useState('True');
 
@@ -74,18 +73,14 @@ function Transfers({isPanelExpanded}) {
             let res = JSON.parse(txt);
             console.log(res.balance);
             if (transferAmount <= res.balance) {
-                setBalanceValid('True');
                 console.log('Balance valid.')
+                CompleteTransfer(event);
             } else {
-                setBalanceValid('False')
                 console.log('Balance invalid.')
             }
         }
         catch (e) {
             console.log(e.toString());
-        }
-        if (balanceValid === 'True') {
-            CompleteTransfer(event);
         }
     };
 
