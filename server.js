@@ -596,7 +596,17 @@ app.post('/api/forgotPasswordEmail', async (req, res) => {
 
     // generates token
     const token = crypto.randomBytes(20).toString('hex');
-
+    
+    const transporter = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "noreply.moneymaster@gmail.com",
+          pass: "ggmsvxhwpiiotfny",
+        },
+    });
     // define email options
     const mailOptions = {
         from: 'moneymaster.com', // sender address
