@@ -390,8 +390,34 @@ app.post('/api/createSavings', async (req, res) => {
 
 
 // CHECK BALANCE
-app.get('/api/checkBalance', async (req, res) => {
-    // in progress
+app.post('/api/checkBalance', async (req, res) => {
+    try {
+        const { AccountType, UserID } = req.body;
+        if (AccountType === "Checking") {
+            const database = client.db("COP4331Bank").collection("Checking Accounts");
+            const checkingAccount = await database.findOne({ UserID });
+
+            if (checkingAccount) {
+                return res.status(200).json({ balance: checkingAccount.AccountValue });
+            } else {
+                return res.status(400).json({ message: 'No Checking Account for this User' });
+            }
+        } else if (AccountType === "Savings") {
+            const database = client.db("COP4331Bank").collection("Savings Accounts");
+            const savingsAccount = await database.findOne({ UserID });
+
+            if (savingsAccount) {
+                return res.status(200).json({ balance: savingsAccount.AccountValue });
+            } else {
+                return res.status(400).json({ message: 'No Savings Account for this User' });
+            }
+        } else {
+            return res.status(400).json({ message: 'Invalid Account type: only Checking or Savings' });
+        }
+    } catch (e) {
+        console.error(e);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 
