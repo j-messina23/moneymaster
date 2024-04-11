@@ -220,5 +220,5 @@ function ResetPw() {
             </form>
         </div>
     );
-
+};
 export default ResetPw;
