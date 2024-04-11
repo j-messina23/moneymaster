@@ -423,9 +423,7 @@ app.post('/api/checkBalance', async (req, res) => {
     }
 });
 
-
-
-// TRANSFER MONEY USER -> USER
+/ TRANSFER MONEY USER -> USER
 app.post('/api/transferMoney', async (req, res) => {
     const { UserID1, Username, Money } = req.body;
     const database = client.db("COP4331Bank").collection("Checking Accounts");
@@ -477,7 +475,9 @@ app.post('/api/transferMoney', async (req, res) => {
             Date: dateStr,
             Time: timeStr,
             UserID: UserID1,
-            AccountID: checkingAccount1._id
+            AccountID: checkingAccount1._id,
+            To: user,
+            From: "you"
         };
     
         const newTransaction2 = {
@@ -486,7 +486,9 @@ app.post('/api/transferMoney', async (req, res) => {
             Date: dateStr,
             Time: timeStr,
             UserID: user._id,
-            AccountID: checkingAccount2._id
+            AccountID: checkingAccount2._id,
+            To: "you",
+            From: UserID.Username,
         };
     
         await databaseT.insertOne(newTransaction1);
@@ -542,6 +544,24 @@ app.post('/api/transferMoneyAccount', async (req, res) => {
                 { UserID },
                 { $inc: { AccountValue: +Money } }
             );
+
+            const newTransaction1 = {
+                TransactionType: "Checking -> Savings",
+                TransactionAmount: "-"+Money,
+                Date: dateStr,
+                Time: timeStr,
+                UserID: UserID,
+                AccountID: account1._id
+            };
+        
+            const newTransaction2 = {
+                TransactionType: "Checking -> Savings",
+                TransactionAmount: "+"+Money,
+                Date: dateStr,
+                Time: timeStr,
+                UserID: UserID,
+                AccountID: account2._id
+            };
         // From Savings -> Checking
         } else if (Type == 2) {
             await database.updateOne(
@@ -553,25 +573,25 @@ app.post('/api/transferMoneyAccount', async (req, res) => {
                 { UserID },
                 { $inc: { AccountValue: -Money } }
             );
-        }
 
-        const newTransaction1 = {
-            TransactionType: "Account -> Account",
-            TransactionAmount: "-"+Money,
-            Date: dateStr,
-            Time: timeStr,
-            UserID: UserID,
-            AccountID: account1._id
-        };
-    
-        const newTransaction2 = {
-            TransactionType: "Account -> Account",
-            TransactionAmount: "+"+Money,
-            Date: dateStr,
-            Time: timeStr,
-            UserID: UserID,
-            AccountID: account2._id
-        };
+            const newTransaction1 = {
+                TransactionType: "Savings -> Checking",
+                TransactionAmount: "-"+Money,
+                Date: dateStr,
+                Time: timeStr,
+                UserID: UserID,
+                AccountID: account1._id
+            };
+        
+            const newTransaction2 = {
+                TransactionType: "Savings -> Checking",
+                TransactionAmount: "+"+Money,
+                Date: dateStr,
+                Time: timeStr,
+                UserID: UserID,
+                AccountID: account2._id
+            };
+        }
     
         await databaseT.insertOne(newTransaction1);
         await databaseT.insertOne(newTransaction2);
@@ -583,7 +603,6 @@ app.post('/api/transferMoneyAccount', async (req, res) => {
 
     return res.status(200).json({ message: "Transfer Complete" });
 });
-
 
 
 // API endpoint to send an email
