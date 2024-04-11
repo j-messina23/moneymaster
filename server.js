@@ -527,7 +527,7 @@ app.post('/api/transferMoneyAccount', async (req, res) => {
         const account2 = await database2.findOne({ UserID });
 
         if (!account1) {
-            return res.status(500).json({ message: 'User2 missing checking account.'});
+            return res.status(500).json({ message: 'User1 missing checking account.'});
         }
         if (!account2) {
             return res.status(500).json({ message: 'User2 missing savings account.' });
@@ -562,6 +562,9 @@ app.post('/api/transferMoneyAccount', async (req, res) => {
                 UserID: UserID,
                 AccountID: account2._id
             };
+
+            await databaseT.insertOne(newTransaction1);
+            await databaseT.insertOne(newTransaction2);
         // From Savings -> Checking
         } else if (Type == 2) {
             await database.updateOne(
@@ -591,10 +594,10 @@ app.post('/api/transferMoneyAccount', async (req, res) => {
                 UserID: UserID,
                 AccountID: account2._id
             };
+
+            await databaseT.insertOne(newTransaction1);
+            await databaseT.insertOne(newTransaction2);
         }
-    
-        await databaseT.insertOne(newTransaction1);
-        await databaseT.insertOne(newTransaction2);
 
         var error = '';
     } catch (e) {
