@@ -8,16 +8,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-const app_name = 'moneymaster22-267f3a958fc3'
-function buildPath(route) {
-    if (process.env.NODE_ENV === 'production') {
-        return 'https://' + app_name + '.herokuapp.com/' + route;
-    }
-    else {
-        return 'http://localhost:5000/' + route;
-    }
-}
-const resetPasswordUrl = buildPath(`resetpw?token=${token}`);
+
 
 
 app.set('port', (process.env.PORT || 5000));
