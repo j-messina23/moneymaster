@@ -634,7 +634,7 @@ app.post('/api/forgotPasswordEmail', async (req, res) => {
         subject: 'Password Reset Verification Code', // Subject line
         html: `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>` +
         `<p>Please click on the following link, or paste this into your browser to complete the process:</p>` +
-        `<a href="${resetPasswordUrl}">Reset Password</a>` +
+        `<a href="https://moneymaster22-267f3a958fc3.herokuapp.com/resetpw?token=${token}">Reset Password</a>` +
         `<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`
     };
 
