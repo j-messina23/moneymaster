@@ -422,43 +422,164 @@ app.post('/api/checkBalance', async (req, res) => {
 
 
 
-// TRANSFER MONEY
-app.post('api/transferMoney', async (req, res) => {
-    const {_id1, _id2, Money} = req.body;
+// TRANSFER MONEY USER -> USER
+app.post('/api/transferMoney', async (req, res) => {
+    const { UserID1, Username, Money } = req.body;
     const database = client.db("COP4331Bank").collection("Checking Accounts");
+    const databaseU = client.db("COP4331Bank").collection("Users")
+    const databaseT = client.db("COP4331Bank").collection("Transactions");
 
-    const checkingAccount1 = await database.findOne({_id});
-    const checkingAccount2 = await database.findOne({_id2});
+    // Getting date and time.
+    var currentDate = new Date();
+    var date = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
 
-    if (checkingAccount1 && checkingAccount2)
-    {
-        checkingAccount1.AccountValue -= money;
-        checkingAccount2.AccountValue += money;
+    const dateStr = date + "/" + month + "/" + year;
+    const timeStr = hours + ":" + minutes + ":" + seconds;
 
-        await database.updateOne({_id1: checkingAccount1._id1}, {$set: {AccountValue: checkingAccount1.AccountValue}});
-        await database.updateOne({_id2: checkingAccount2._id2}, {$set: {AccountValue: checkingAccount2.AccountValue}});
-        return res.status(400).json({ message: '$' + money + ' transfered.'});
+    try {
+        const checkingAccount1 = await database.findOne({ UserID: UserID1 });
+        const user = await databaseU.findOne({Username})
+
+        if (!user) {
+            return res.status(500).json({message: "User " + Username + " does not exist"})
+        }
+
+        const checkingAccount2 = await database.findOne({ UserID: "" + user._id });
+
+        if (!checkingAccount1) {
+            return res.status(500).json({ message: 'User2 missing checking account.'});
+        }
+        if (!checkingAccount2) {
+            return res.status(500).json({ message: 'User2 missing checking account.' });
+        }
+
+        await database.updateOne(
+            { UserID: UserID1 },
+            { $inc: { AccountValue: -Money } }
+        );
+
+        await database.updateOne(
+            { UserID: "" + user._id },
+            { $inc: { AccountValue: +Money } }
+        );
+
+        const newTransaction1 = {
+            TransactionType: "User -> User",
+            TransactionAmount: "-"+Money,
+            Date: dateStr,
+            Time: timeStr,
+            UserID: UserID1,
+            AccountID: checkingAccount1._id
+        };
+    
+        const newTransaction2 = {
+            TransactionType: "User -> User",
+            TransactionAmount: "+"+Money,
+            Date: dateStr,
+            Time: timeStr,
+            UserID: user._id,
+            AccountID: checkingAccount2._id
+        };
+    
+        await databaseT.insertOne(newTransaction1);
+        await databaseT.insertOne(newTransaction2);
+
+        var error = '';
+    } catch (e) {
+        error = e.toString();
     }
-    else if (checkingAccount1)
-    {
-        return res.status(400).json({ message: 'Unable to transfer to null account.'});
-    }
-
-    return res.status(400).json({ message: 'Unable to transfer.'});
+    return res.status(200).json({ message: "Money sent to " + Username });
 });
 
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-        user: 'elian10@ethereal.email',
-        pass: 'GSz4RsgmFqGHWyYgBr'
+
+// TRANSFER MONEY ACCOUNT -> ACCOUNT
+app.post('/api/transferMoneyAccount', async (req, res) => {
+    const { UserID, Type, Money } = req.body;
+    const database = client.db("COP4331Bank").collection("Checking Accounts");
+    const database2 = client.db("COP4331Bank").collection("Savings Accounts");
+    const databaseT = client.db("COP4331Bank").collection("Transactions");
+
+    // Getting date and time.
+    var currentDate = new Date();
+    var date = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    
+    const dateStr = date + "/" + month + "/" + year;
+    const timeStr = hours + ":" + minutes + ":" + seconds;
+
+    try {
+        const account1 = await database.findOne({ UserID });
+        const account2 = await database2.findOne({ UserID });
+
+        if (!account1) {
+            return res.status(500).json({ message: 'User2 missing checking account.'});
+        }
+        if (!account2) {
+            return res.status(500).json({ message: 'User2 missing savings account.' });
+        }
+
+        // From Checking -> Savings
+        if (Type == 1) {
+            await database.updateOne(
+                { UserID },
+                { $inc: { AccountValue: -Money } }
+            );
+    
+            await database2.updateOne(
+                { UserID },
+                { $inc: { AccountValue: +Money } }
+            );
+        // From Savings -> Checking
+        } else if (Type == 2) {
+            await database.updateOne(
+                { UserID },
+                { $inc: { AccountValue: +Money } }
+            );
+    
+            await database2.updateOne(
+                { UserID },
+                { $inc: { AccountValue: -Money } }
+            );
+        }
+
+        const newTransaction1 = {
+            TransactionType: "Account -> Account",
+            TransactionAmount: "-"+Money,
+            Date: dateStr,
+            Time: timeStr,
+            UserID: UserID,
+            AccountID: account1._id
+        };
+    
+        const newTransaction2 = {
+            TransactionType: "Account -> Account",
+            TransactionAmount: "+"+Money,
+            Date: dateStr,
+            Time: timeStr,
+            UserID: UserID,
+            AccountID: account2._id
+        };
+    
+        await databaseT.insertOne(newTransaction1);
+        await databaseT.insertOne(newTransaction2);
+
+        var error = '';
+    } catch (e) {
+        error = e.toString();
     }
+
+    return res.status(200).json({ message: "Transfer Complete" });
 });
-
-
-
 
 
 
