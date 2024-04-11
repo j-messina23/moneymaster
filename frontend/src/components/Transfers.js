@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 
-function Transfers({isPanelExpanded}) {
+function Transfers({ isPanelExpanded }) {
     const app_name = 'moneymaster22-267f3a958fc3'
     function buildPath(route) {
         if (process.env.NODE_ENV === 'production') {
@@ -15,6 +15,8 @@ function Transfers({isPanelExpanded}) {
     const [transferAmount, setTransferAmount] = useState('');
     const [transferAccountType, setAccountType] = useState('1');
     const [switchForms, setForm] = useState('True');
+    const [transferSuccess, setTransferSuccess] = useState('False')
+    const [transferMessage, setTransferMessage] = useState('')
 
     const userData = JSON.parse(localStorage.getItem('user_data'));
     console.log(userData)
@@ -75,6 +77,8 @@ function Transfers({isPanelExpanded}) {
             if (transferAmount <= res.balance) {
                 console.log('Balance valid.')
                 CompleteTransfer(event);
+                setTransferSuccess('True')
+                setTransferMessage(transferAmount + ' sent to ' + transferTarget + ' successfully!')
             } else {
                 console.log('Balance invalid.')
             }
@@ -86,6 +90,7 @@ function Transfers({isPanelExpanded}) {
 
     const TransferUser = async event => {
         event.preventDefault();
+        setAccountType(document.getElementById("selectAccount").value)
         console.log(transferAccountType)
         console.log(transferAmount)
         let obj = { "UserID": UserID, "Type": transferAccountType, "Money": transferAmount };
@@ -154,6 +159,11 @@ function Transfers({isPanelExpanded}) {
                                     <button onClick={AccountsHref} className="w-2/5 bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-gray-200">Back To Accounts</button>
                                 </div>
                             </div>
+                            {transferSuccess==='True' && (
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                                    <span class="block sm:inline">{transferMessage}</span>
+                                </div>
+                            )}
                         </div>
 
                     ) : (
