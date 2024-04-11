@@ -86,7 +86,6 @@ function Transfers({isPanelExpanded}) {
 
     const TransferUser = async event => {
         event.preventDefault();
-        setAccountType(document.getElementById("selectAccount").value)
         console.log(transferAccountType)
         console.log(transferAmount)
         let obj = { "UserID": UserID, "Type": transferAccountType, "Money": transferAmount };
