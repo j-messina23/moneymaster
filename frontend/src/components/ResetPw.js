@@ -128,97 +128,77 @@ function ResetPw() {
                 <h1 className="text-white text-7xl font-extrabold ml-2 uppercase leading-tight">Money Master</h1>
             </div>
 
-            {/* ... existing code ... */}
+            <div className="p-8 mb-6 rounded-lg border-2 border-white flex flex-col justify-center">
+                <div className="flex justify-center">
+                    <span className="text-white font-bold text-3xl uppercase leading-tight">Reset Your Password</span>
+                </div>
 
-            <form className="w-full max-w-md mt-8 px-8 py-6 rounded-lg border-2 border-white flex flex-col items-center" onSubmit={doReset}>
-                <span className="text-white font-bold text-3xl uppercase mb-6">Reset Your Password</span>
+                {/* Password input field */}
+                <div className="w-full py-3">
+                    <div className="relative w-full min-w-[300px]">
+                        <input
+                            id='password'
+                            type="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            onBlur={handlePasswordBlur}
+                            className="peer w-full h-10 bg-transparent text-white font-normal outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-white placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-white"
+                            placeholder=" "
+                            required
+                        />
+                        <label htmlFor='password' className="absolute left-0 -top-3.5 text-white transition-all text-sm">Password</label>
+                    </div>
+                </div>
 
-                <input
-                    type="password"
-                    placeholder="New Password"
-                    className="w-full mb-4 px-3 py-2 bg-transparent text-white border border-white rounded focus:outline-none focus:border-gray-300"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    onBlur={handlePasswordBlur}
-                    required
-                />
+                {/* Password requirements */}
                 {passwordRequirements.length > 0 && (
-                    <ul className="text-red-500 mb-4">
-                        {passwordRequirements.map((requirement, index) => (
-                            <li key={index}>{requirement}</li>
-                        ))}
-                    </ul>
-                {/* Password input */}
-                <div className="relative w-full mb-4">
-                    <input
-                        id='password'
-                        type="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        onBlur={handlePasswordBlur}
-                        className="peer w-full h-10 px-3 py-2.5 bg-transparent text-white font-normal outline outline-0 focus:outline-0 border rounded text-sm"
-                        placeholder=" "
-                        required
-                    />
-                    <label htmlFor='password' className="absolute left-0 -top-1.5 text-[11px] text-white transition-all peer-placeholder-shown:text-sm peer-focus:text-[11px] peer-focus:text-white">New Password</label>
-                    {/* Password requirements */}
-                    {passwordRequirements.length > 0 && (
-                        <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg" role="alert">
-                            <div>
-                                <ul className="list-disc list-inside">
-                                    {passwordRequirements.map((requirement, index) => (
-                                        <li key={index}>{requirement}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                    <div className="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg border-l-4 border-red-500" role="alert">
+                        <div>
+                            <span className="font-medium">Ensure that these requirements are met:</span>
+                            <ul className="list-disc list-inside">
+                                {passwordRequirements.map((requirement, index) => (
+                                    <li key={index}>{requirement}</li>
+                                ))}
+                            </ul>
                         </div>
-                    )}
-                </div>
-
-                {/* Confirm Password input */}
-                <div className="relative w-full mb-4">
-                    <input
-                        id='confirmPassword'
-                        type="password"
-                        value={confirmPassword}
-                        onChange={handleConfirmPasswordChange}
-                        className="peer w-full h-10 px-3 py-2.5 bg-transparent text-white font-normal outline outline-0 focus:outline-0 border rounded text-sm"
-                        placeholder=" "
-                        required
-                    />
-                    <label htmlFor='confirmPassword' className="absolute left-0 -top-1.5 text-[11px] text-white transition-all peer-placeholder-shown:text-sm peer-focus:text-[11px] peer-focus:text-white">Confirm New Password</label>
-                </div>
-                {!passwordMatch && (
-                    <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg" role="alert">
-                        <span>Passwords do not match.</span>
                     </div>
                 )}
-                <input
-                    type="password"
-                    placeholder="Confirm New Password"
-                    className="w-full mb-4 px-3 py-2 bg-transparent text-white border border-white rounded focus:outline-none focus:border-gray-300"
-                    value={confirmPassword}
-                    onChange={handleConfirmPasswordChange}
-                    required
-                />
-                {!passwordMatch && <p className="text-red-500 mb-4">* Passwords do not match</p>} {/* Display password match indication */}
 
-                <button 
-                    type="submit" 
-                    className="w-full bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-gray-200"
-                >
-                    Change Password
-                </button>
+                {/* Confirm Password input field */}
+                <div className="w-full py-3">
+                    <div className="relative w-full min-w-[300px]">
+                        <input
+                            id='confirmPassword'
+                            type="password"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                            className="peer w-full h-10 bg-transparent text-white font-normal outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-white placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-white"
+                            placeholder=" "
+                            required
+                        />
+                        <label htmlFor='confirmPassword' className="absolute left-0 -top-3.5 text-white transition-all text-sm">Confirm Password</label>
+                    </div>
+                </div>
 
-                {error && <p className="text-red-500 mt-4">{error}</p>}
+                {/* Passwords do not match message */}
+                {!passwordMatch && (
+                    <div className="text-red-700 bg-red-100 border-l-4 border-red-500 p-4 rounded relative" role="alert">
+                        <span className="block sm:inline">Passwords do not match.</span>
+                    </div>
+                )}
 
                 {/* Submit button */}
-                <button type="submit" className="w-full bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-gray-200">Change Password</button>
+                <button type="submit" className="w-full bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50">Change Password</button>
 
                 {/* Error message */}
-                {error && <p className="mt-4 text-sm text-red-800 bg-red-50 rounded-lg p-4">{error}</p>}
-            </form>
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
+                        <span className="block sm:inline">{error}</span>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
+
 export default ResetPw;
