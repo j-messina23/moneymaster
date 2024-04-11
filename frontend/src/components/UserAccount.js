@@ -74,7 +74,7 @@ function UserAccount({isPanelExpanded}) {
                             </div>
                         )}
                         <div className="flex items-center mb-4">
-                            <div className="w-20 h-20 bg-gray-400 rounded-full flex items-center justify-center text-teal-800 text-4xl font-bold mr-4">{userData.FirstName[0]}{userData.LastName[0]}</div>
+                            <div className="w-20 h-20 bg-teal-800 rounded-full flex items-center justify-center text-white text-4xl font-bold mr-4">{userData.FirstName[0]}{userData.LastName[0]}</div>
                             <div>
                                 <p className="text-2xl text-teal-800 font-bold">{userData.FirstName} {userData.LastName}</p>
                                 <p className="text-teal-800">{userData.Username}</p>
