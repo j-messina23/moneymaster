@@ -52,7 +52,7 @@ function Accounts({isPanelExpanded}) {
             let jsS = JSON.stringify(objS);
             try {
                 const response = await
-                    fetch(buildPath('searchSavingsAccounts'),
+                    fetch(buildPath('api/searchSavingsAccounts'),
                         {
                             method: 'POST', body: jsS, headers: {
                                 'Content-Type':
